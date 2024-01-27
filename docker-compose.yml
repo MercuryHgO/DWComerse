@@ -1,0 +1,27 @@
+version: '3'
+
+services:
+  client:
+    build:
+      context: ./comerce-client/
+      dockerfile: Dockerfile
+    ports:
+      - '80:8080'
+  server:
+    build:
+      context: ./comerse-server/
+      dockerfile: Dockerfile
+      args:
+        DATABASE_URL: "postgresql://postgres:postgres@127.0.0.1/comerseprojectdb"
+
+    environment:
+      APP_ID: 2000
+      JWT_ACCESS_KEY: wqediqw;iod
+      JWT_REFRESH_KEY: qndqwdbqud
+      JWT_ADMIN_ACCESS_KEY: AHNJFukajwgU
+      JWT_ADMIN_REFRESH_KEY: aqojdwijijdijijdij
+      ADMIN_LOGIN: Chuvirla
+      ADMIN_PASSWORD: besperspektivnyak
+    ports:
+      - '6000:6000'
+    network_mode: 'host'
