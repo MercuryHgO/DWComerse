@@ -14,6 +14,5 @@ RUN npm install
 
 RUN npm run build
 
-#RUN npx prisma migrate dev
-
-CMD ["npm", "run", "dev"]
+CMD ["sh", "-c", "npx prisma migrate deploy && npx prisma db seed && npm run app"]
+#CMD ["sh", "-c", "npm run app"]

@@ -12,7 +12,10 @@ services:
       context: ./comerse-server/
       dockerfile: Dockerfile
       args:
-        DATABASE_URL: "postgresql://postgres:postgres@127.0.0.1/comerseprojectdb"
+        DATABASE_URL: "postgresql://postgres:postgres@db/comerseprojectdb"
+
+    depends_on:
+      - db
 
     environment:
       APP_ID: 2000
@@ -23,5 +26,16 @@ services:
       ADMIN_LOGIN: Chuvirla
       ADMIN_PASSWORD: besperspektivnyak
     ports:
-      - '6000:6000'
-    network_mode: 'host'
+      - '6000:2000'
+
+  db:
+    image: postgres:14.1-alpine
+    restart: always
+    environment:
+      POSTGRES_USER: "postgres"
+      POSTGRES_PASSWORD: "postgres"
+    volumes:
+      - db:/var/lib/postgres/data
+
+volumes:
+  db:
