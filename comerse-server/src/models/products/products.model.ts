@@ -7,12 +7,14 @@ export class ProductsModel extends databaseEndpointsModel {
 		name?: string,
 		price?: number,
 		info?: string,
-		take?: number
+		take?: number,
+		skip?: number
 	}): void {
 		
 		if(data.id === "*") {
 			const request = prisma.product.findMany({
-				take: data.take
+				take: data.take,
+				skip: data.skip
 			})
 			
 			this.requestsStack.push(request)

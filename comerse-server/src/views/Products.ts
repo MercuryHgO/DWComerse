@@ -34,9 +34,12 @@ router.get("/",
 		try {
 			const Products: ProductsController = new ProductsController()
 			
+			const {page}: {page?: number} = req.query
+			
 			const product = await Products.getProducts(
 				{
 					id: "*",
+					skip: page ? page * 20 : 0,
 					take: 20
 				}
 			)

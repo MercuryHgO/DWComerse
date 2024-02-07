@@ -14,7 +14,8 @@ export class ProductsController {
 		name?: string,
 		price?: number,
 		info?: string,
-		take?: number
+		take?: number,
+		skip?: number
 	}): Promise<ProductDatabaseType[]> {
 		this.Products.get(options)
 		
