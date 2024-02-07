@@ -9,16 +9,16 @@ router.use(bodyParser.json())
 router.get("/search",
 	async (req, res, next) => {
 		try {
-			const {name, price}: { name?: string, price?: number } = req.query
+			const {name, price, category}: { name?: string, price?: number, category?: string } = req.query
 			
-			if (!name && !price) {
+			if (!name && !price && !category) {
 				res.sendStatus(400)
 				return
 			}
 			
 			const Products: ProductsController = new ProductsController()
 			
-			const product = await Products.getProducts({name: name, price: price})
+			const product = await Products.getProducts({name: name, price: price, category: category})
 			
 			!!product[0] ? res.send(product) : res.status(404).send('No product found')
 			
@@ -81,7 +81,8 @@ router.post("/",
 			const data: {
 				name: string,
 				price: number,
-				info: string
+				info: string,
+				category: string
 			}[] = req.body
 			
 			const Products: ProductsController = new ProductsController()
@@ -106,7 +107,8 @@ router.patch("/",
 				id: string,
 				name?: string,
 				price?: number,
-				info?: string
+				info?: string,
+				category?: string
 			}[] = req.body
 			
 			const Products: ProductsController = new ProductsController()

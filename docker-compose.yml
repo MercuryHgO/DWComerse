@@ -36,6 +36,10 @@ services:
       POSTGRES_PASSWORD: "postgres"
     volumes:
       - db:/var/lib/postgres/data
+#    dev
+    ports:
+      - '3000:5432'
+
 
 volumes:
   db:

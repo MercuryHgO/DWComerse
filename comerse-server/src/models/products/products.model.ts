@@ -1,16 +1,18 @@
 import {databaseEndpointsModel} from "../databaseEndpoints/databaseEndpoints.model.js";
 import prisma from "../helpers/prisma.js";
+import {Product} from "@prisma/client";
+
+export type ProductGet = Partial<Product> &
+	{
+		take?: number,
+		skip?: number,
+	}
+export type ProductPost = Omit<Product, 'id'>
+export type ProductPatch = Pick<Product,'id'> & Partial<Omit<Product,'id'>>
+export type ProductDelete = Pick<Product, 'id'>
 
 export class ProductsModel extends databaseEndpointsModel {
-	get(data: {
-		id?: string,
-		name?: string,
-		price?: number,
-		info?: string,
-		take?: number,
-		skip?: number
-	}): void {
-		
+	get(data: ProductGet): void {
 		if(data.id === "*") {
 			const request = prisma.product.findMany({
 				take: data.take,
@@ -28,7 +30,8 @@ export class ProductsModel extends databaseEndpointsModel {
 					{ id: data.id },
 					{ name: data.name },
 					{ price: data.price },
-					{ info: data.info }
+					{ info: data.info },
+					{ category: data.category }
 				]
 			}
 		})
@@ -36,22 +39,13 @@ export class ProductsModel extends databaseEndpointsModel {
 		this.requestsStack.push(request)
 	}
 	
-	post(data: {
-		name: string,
-		price: number,
-		info: string
-	}): void {
+	post(data: ProductPost): void {
 		const request = prisma.product.create({data: data})
 		
 		this.requestsStack.push(request)
 	}
 	
-	patch(data: {
-		id: string,
-		name?: string,
-		price?: number,
-		info?: string
-	}): void {
+	patch(data: ProductPatch): void {
 		const request = prisma.product.update({
 			where: {
 				id: data.id
@@ -62,9 +56,7 @@ export class ProductsModel extends databaseEndpointsModel {
 		this.requestsStack.push(request)
 	}
 	
-	delete(data: {
-		id: string
-	}): void {
+	delete(data: ProductDelete): void {
 		const request = prisma.product.delete({
 			where: {
 				id: data.id

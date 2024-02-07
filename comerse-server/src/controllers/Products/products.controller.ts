@@ -1,7 +1,13 @@
 import {Product as ProductDatabaseType} from "@prisma/client";
 import UserModel from "../../models/user/user.model.js";
 import {AdminModel} from "../../models/user/admin.model.js";
-import {ProductsModel} from "../../models/products/products.model.js";
+import {
+	ProductDelete,
+	ProductGet,
+	ProductPatch,
+	ProductPost,
+	ProductsModel
+} from "../../models/products/products.model.js";
 
 export class ProductsController {
 	private User: UserModel = new UserModel()
@@ -9,14 +15,7 @@ export class ProductsController {
 	
 	private Products: ProductsModel = new ProductsModel()
 	
-	async getProducts(options: {
-		id?: string,
-		name?: string,
-		price?: number,
-		info?: string,
-		take?: number,
-		skip?: number
-	}): Promise<ProductDatabaseType[]> {
+	async getProducts(options: ProductGet): Promise<ProductDatabaseType[]> {
 		this.Products.get(options)
 		
 		const data = await this.Products.execute()
@@ -24,11 +23,7 @@ export class ProductsController {
 		return data[0]
 	}
 	
-	async createProducts(products: {
-		name: string,
-		price: number,
-		info: string
-	}[],adminToken: string): Promise<ProductDatabaseType[]> {
+	async createProducts(products: ProductPost[],adminToken: string): Promise<ProductDatabaseType[]> {
 		await this.Admin.getAuthorizationMethods().verifyAccess(adminToken)
 		
 		products.forEach(
@@ -38,12 +33,7 @@ export class ProductsController {
 		return await this.Products.execute()
 	}
 	
-	async patchProducts(products: {
-		id: string,
-		name?: string,
-		price?: number,
-		info?: string
-	}[], adminToken: string): Promise<ProductDatabaseType[]> {
+	async patchProducts(products: ProductPatch[], adminToken: string): Promise<ProductDatabaseType[]> {
 		await this.Admin.getAuthorizationMethods().verifyAccess(adminToken)
 		
 		products.forEach(
@@ -53,9 +43,7 @@ export class ProductsController {
 		return await this.Products.execute()
 	}
 	
-	async deleteProducts(products: {
-		id: string
-	}[], adminToken: string): Promise<any> {
+	async deleteProducts(products: ProductDelete[], adminToken: string): Promise<any> {
 		await this.Admin.getAuthorizationMethods().verifyAccess(adminToken)
 		
 		products.forEach(
