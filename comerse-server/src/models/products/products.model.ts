@@ -2,6 +2,8 @@ import {databaseEndpointsModel} from "../databaseEndpoints/databaseEndpoints.mod
 import prisma from "../helpers/prisma.js";
 import {Product} from "@prisma/client";
 
+// TODO СУКА ЗАРЕФАКТОРИ ЭТО ЕБАНОЕ ДЕРЬМО
+
 export type ProductGet = Partial<Product> &
 	{
 		take?: number,
@@ -12,6 +14,23 @@ export type ProductPatch = Pick<Product,'id'> & Partial<Omit<Product,'id'>>
 export type ProductDelete = Pick<Product, 'id'>
 
 export class ProductsModel extends databaseEndpointsModel {
+	getInfo(): void {
+		 this.requestsStack.push(
+			 prisma.product.findMany({
+				distinct: 'category',
+				select: {
+					category: true,
+				}
+			 })
+		 )
+		
+		this.requestsStack.push(
+			prisma.product.count()
+		)
+		
+		return
+	}
+	
 	get(data: ProductGet): void {
 		if(data.id === "*") {
 			const request = prisma.product.findMany({

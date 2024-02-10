@@ -23,6 +23,17 @@ export class ProductsController {
 		return data[0]
 	}
 	
+	async getProductsInfo() {
+		this.Products.getInfo()
+		
+		const data = await this.Products.execute()
+		
+		return {
+			categories: data[0],
+			count: data[1]
+		}
+	}
+	
 	async createProducts(products: ProductPost[],adminToken: string): Promise<ProductDatabaseType[]> {
 		await this.Admin.getAuthorizationMethods().verifyAccess(adminToken)
 		

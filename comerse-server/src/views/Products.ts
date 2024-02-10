@@ -29,6 +29,18 @@ router.get("/search",
 	}
 )
 
+router.get("/info",async (req, res, next) => {
+	try {
+		const Products: ProductsController = new ProductsController()
+		
+		const info = await Products.getProductsInfo()
+		
+		res.send(info)
+	} catch (e) {
+		next(e)
+	}
+})
+
 router.get("/",
 	async (req, res, next) => {
 		try {
