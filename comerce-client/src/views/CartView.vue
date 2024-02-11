@@ -1,5 +1,5 @@
 <template>
-<cart-component/>
+  <cart-component/>
 </template>
 
 <script>

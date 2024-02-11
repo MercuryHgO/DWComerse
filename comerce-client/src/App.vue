@@ -1,16 +1,16 @@
 <template>
-  <main-component/>
+  <header-component></header-component>
+  <router-view/>
 </template>
 <script>
-import mainComponent from "@/components/mainComponent";
+import headerComponent from "@/components/header/headerComponent";
 export default {
-  components:{
-    mainComponent
+  components: {
+    headerComponent
   }
 }
 </script>
 <style lang="scss">
-@import '~bootstrap/dist/css/bootstrap.css';
 :root{
   --color1: #242582;
   --color2: #553D67;

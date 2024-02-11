@@ -1,5 +1,7 @@
 <template>
-<catalog-component/>
+  <div>
+      <catalog-component/>
+  </div>
 </template>
 
 <script>

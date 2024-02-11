@@ -5,7 +5,6 @@ import mutations from "@/store/mutations/mutations";
 import commonActions from "@/store/actions/actions";
 import apiRequests from "@/store/actions/api-requests";
 import modules from "@/store/modules/modules";
-
 const actions = {...commonActions, ...apiRequests}
 
 export default createStore({

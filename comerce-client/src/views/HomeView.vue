@@ -7,7 +7,7 @@ import mainMenuComponent from "@/components/main-menu/mainMenuComponent";
 export default {
   name: 'HomeView',
   components: {
-      mainMenuComponent
+    mainMenuComponent
   }
 }
 </script>

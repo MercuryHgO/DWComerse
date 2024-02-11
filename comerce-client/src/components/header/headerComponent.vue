@@ -5,7 +5,7 @@
         <img src="../../assets/img/pf1.png" class="d-inline-block align-top">
       </div>
       <div class="nav">
-        <router-link :to="{name: 'home'}">
+        <router-link to="/">
           <div>
             <p class="text-center">
               <i class="fi fi-rr-shop"></i><br>
@@ -13,7 +13,7 @@
             </p>
           </div>
         </router-link>
-        <router-link :to="{name: 'catalog'}">
+        <router-link to="/catalog">
           <div>
             <p class="text-center">
               <i class="fi fi-rr-list"></i><br>

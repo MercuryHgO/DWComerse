@@ -1,5 +1,5 @@
 <template>
-<settings-component></settings-component>
+  <settings-component></settings-component>
 </template>
 
 <script>
